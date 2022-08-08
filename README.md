@@ -7,9 +7,9 @@ The test is setup using [docker](https://www.docker.com/) and [docker compose](h
 1. app: A PHP container with FPM and xdebug (image built will be found as `local/php:8-fpm-xdebug`)
 2. loadbalancer: An nginx container which always forwards the header `FOO=BAR`
 
-The test starts these containers and sends a request to a page that simply outputs the value of `$_SERVER['FOO']` and `filter_input(INPUT_SERVER, 'FOO')`, once where `xdebug.mode=off` and another where `xdebug.mode=develop`.
+The test then sends a request to a page that simply outputs the value of `$_SERVER['FOO']` and `filter_input(INPUT_SERVER, 'FOO')` in JSON format, once where `xdebug.mode=off` and another where `xdebug.mode=develop`.
 
-When `xdebug.mode=off` you should see the output match of both lines match:
+When `xdebug.mode=off` you should see the output of both lines match:
 
 ```
 {
@@ -18,7 +18,7 @@ When `xdebug.mode=off` you should see the output match of both lines match:
 }
 ```
 
-However when `xdebug.mode=develop` you will see `filter_input` returning `null`:
+However when `xdebug.mode=develop` you will see `filter_input` return `null`:
 
 ```
 {
