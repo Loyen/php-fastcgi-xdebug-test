@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    build: ./docker/php
+    image: local/php:8-fpm-xdebug
+    environment:
+      - XDEBUG_MODE=${XDEBUG_MODE}
+    volumes:
+    - ./src:/app:ro
+  loadbalancer:
+    image: nginx
+    volumes:
+    - ./src/public:/app/public
+    - ./config/nginx/app.conf.template:/etc/nginx/templates/default.conf.template
+    ports:
+    - 8080:80
+    environment:
+      FASTCGI_PASS: app:9000
