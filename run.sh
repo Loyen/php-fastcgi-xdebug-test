@@ -5,7 +5,7 @@ run_test() {
 
     echo "========= Running with XDEBUG_MODE=${XDEBUG_MODE} ========="
 
-    docker compose up -d
+    docker compose up -d --wait
 
     curl http://localhost:8080/
 
